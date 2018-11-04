@@ -224,7 +224,9 @@ Connect a modern device to the Arduino over USB. Connect the Arduino to the Lisa
 * Digital pins 1, 0 / switches E, F must be OPEN.
 
 ## Reverse Translator Mode
-To use Reverse Translator Mode, you must add a USB Host Shield to the Arduino. [Sparkfun has one for sale.](https://www.sparkfun.com/products/9947) Connect a USB keyboard to the USB Host Shield. Connect the Arduino to the Lisa's keyboard port. Use the USB keyboard as the Lisa's keyboard. 
+To use Reverse Translator Mode, you must add a USB Host Shield to the Arduino. [Sparkfun has one for sale.](https://www.sparkfun.com/products/9947) You must also add the USB Host Shield library to the Arduino IDE, found [here](https://github.com/felis/USB_Host_Shield_2.0).
+
+Connect a USB keyboard to the USB Host Shield. Connect the Arduino to the Lisa's keyboard port. Use the USB keyboard as the Lisa's keyboard.
 
 ### Switch Settings
 * Digital pins 5, 4 / switches A, B must be CLOSED.
