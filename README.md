@@ -166,3 +166,76 @@ Connect a Lisa keyboard to the Arduino. Connect the Arduino to a modern device o
   * CLOSED, OPEN: Mac with Left Modifiers: Option = Left Alt, Apple = Left Meta, Enter = Left Ctrl
   * CLOSED, CLOSED: Mac with Mirrored Modifiers: Option = Left Alt, Apple = Left Meta, Enter = Right Meta
 * Digital pins 1, 0 / switches E, F must be OPEN.
+
+## Emulator Mode
+Connect a modern device to the Arduino over USB. Connect the Arduino to the Lisa's keyboard port. Connect to the Arduino from the modern device over USB serial at 9600 baud (using the Arduino Serial Monitor, for example). Each line of input (up to 80 characters) will be sent to the Lisa as keystrokes. The first character of each line determines the interpretation of the rest of the line.
+
+* `!` - Prints the amount of free RAM on the Arduino.
+* `@` - The rest of the line is interpreted as ASCII text. Appropriate key events are sent to generate each character.
+* `#` - The rest of the line is ignored.
+* `$` - The rest of the line is interpreted as a hex dump and sent as raw key event data.
+* `%` - The rest of the line is interpreted as raw binary data and sent as raw key event data.
+* `&` - Characters are mapped to keys:
+  * `{` *keys* `}` - The keys contained inside the braces are pressed but not released.
+  * `(` *keys* `)` - The keys contained inside the parentheses are released but not pressed.
+  * `0` through `9` - Number keys.
+  * `a` through `z` - Letter keys. Always lowercase.
+  * `~`, `-`, `=`, `[`, `]`, `\`, `;`, `:`, `'`, `"`, `,`, `.`, `/` - Corresponding symbol keys.
+  * `|` or `V` or `W` - Space
+  * `A` - Apple
+  * `B` or `D` - Backspace
+  * `C` - Caps Lock
+  * `E` or `M` - Enter
+  * `F` or `N` - Numpad Enter
+  * `G` or `L` - International < > Key
+  * `O` - Left Option
+  * `P` or `Q` - Right Option
+  * `R` - Return
+  * `S` - Shift
+  * `T` - Tab
+  * `X` - Numpad Clear
+  * `Z` - Numpad 0
+  * `!` - Numpad 1
+  * `@` - Numpad 2
+  * `#` - Numpad 3
+  * `$` or `H` - Numpad 4
+  * `%` or `J` - Numpad 5
+  * `^` or `K` - Numpad 6
+  * `Y` - Numpad 7
+  * `U` - Numpad 8
+  * `I` - Numpad 9
+  * `_` - Numpad -
+  * `+` - Numpad +
+  * `*` - Numpad *
+  * `?` - Numpad /
+  * `<` - Numpad ,
+  * `>` - Numpad .
+  * For example, to send an Apple + S keystroke: `&{A}s(A)`
+  * For example, to send a Right Option + Shift + Numpad 0 keystroke: `&{PS}Z(PS)`
+
+### Switch Settings
+* Digital pin 5 / switch A must be CLOSED.
+* Digital pin 4 / switch B must be OPEN.
+* Digital pins 3, 2 / switches C, D select the keyboard layout ID reported to the Lisa:
+  * OPEN, OPEN: US
+  * OPEN, CLOSED: UK
+  * CLOSED, OPEN: German
+  * CLOSED, CLOSED: French
+* Digital pins 1, 0 / switches E, F must be OPEN.
+
+## Reverse Translator Mode
+To use Reverse Translator Mode, you must add a USB Host Shield to the Arduino. [Sparkfun has one for sale.](https://www.sparkfun.com/products/9947) Connect a USB keyboard to the USB Host Shield. Connect the Arduino to the Lisa's keyboard port. Use the USB keyboard as the Lisa's keyboard. 
+
+### Switch Settings
+* Digital pins 5, 4 / switches A, B must be CLOSED.
+* Digital pins 3, 2 / switches C, D select the keyboard layout ID reported to the Lisa:
+  * OPEN, OPEN: US
+  * OPEN, CLOSED: UK
+  * CLOSED, OPEN: German
+  * CLOSED, CLOSED: French
+* Digital pin 1 / switch E selects the interpretation of the modifier keys:
+  * OPEN: PC modifiers: Left Ctrl/Meta = Left Option, Left Alt = Apple, Right Alt = Enter, Right Ctrl/Meta = Right Option
+  * CLOSED: Mac modifiers: Left Alt = Left Option, Left Ctrl/Meta = Apple, Right Ctrl/Meta = Enter, Right Alt = Right Option
+* Digital pin 0 / switch F selects the interpretation of the F1 - F12 keys:
+  * OPEN: Lisa fkeys: F1 - F12 = Right Option + Shift + numeric keypad.
+  * CLOSED: Mac fkeys: F1 - F12 = Apple + Shift + number row.
