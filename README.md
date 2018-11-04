@@ -27,15 +27,15 @@ There are also gerber files for a shield to make connections and configuration e
 Digital pins 0-5 are used to select the mode of operation and settings for that mode. These are present on the shield as switches or jumpers labeled A-F. To leave the "DIP switch" in the OPEN position, leave the pin disconnected or set the switch to the UP position. To leave the "DIP switch" in the CLOSED position, connect the pin to GND or set the switch to the DOWN position.
 
 * Digital pin 5 / switch A:
-  * OPEN: `LK>` - Lisa Keyboard In. Tester Mode or Forward Translator Mode. Connect Lisa keyboard to Arduino and Arduino to modern device.
-  * CLOSED: `>LH` - To Lisa Host. Emulator Mode or Reverse Translator Mode. Connect modern device to Arduino and Arduino to Lisa.
+  * OPEN: `LK>` - Lisa Keyboard In. Tester / Forward Mode. Connect Lisa keyboard to Arduino and Arduino to modern device.
+  * CLOSED: `>LH` - To Lisa Host. Emulator / Reverse Mode. Connect modern device to Arduino and Arduino to Lisa.
 * Digital pin 4 / switch B:
-  * OPEN: `SER` - Serial. Tester Mode or Emulator Mode. Arduino communicates with a modern device over USB serial.
+  * OPEN: `SER` - Serial. Tester / Emulator Mode. Arduino communicates with a modern device over USB serial.
   * CLOSED: `USB`. Translator Mode. Arduino acts as a USB keyboard device or host, depending on switch A.
 * Digital pin 3 / switch C:
   * In Forward Translator Mode:
-    * OPEN: `PC` - PC Modifiers. Left Option = Ctrl, Apple = Alt, Enter = Meta (or Right Alt), Right Option = Fn.
-    * CLOSED: `MAC` - Mac Modifiers. Left Option = Alt, Apple = Meta, Enter = Ctrl (or Right Meta), Right Option = Fn.
+    * OPEN: `PC` - PC Modifiers. Left Option = Ctrl, Apple = Alt, Enter = Meta (or Right Alt).
+    * CLOSED: `MAC` - Mac Modifiers. Left Option = Alt, Apple = Meta, Enter = Ctrl (or Right Meta).
   * In Emulator or Reverse Translator Mode:
     * OPEN: `US/UK`. Selects US or UK keyboard ID.
     * CLOSED: `DE/FR`. Selects German or French keyboard ID.
