@@ -56,3 +56,113 @@ Digital pins 0-5 are used to select the mode of operation and settings for that 
     * OPEN: `LFK` - Lisa FKeys. F1-F12 = Right Option + Shift + numeric keypad.
     * CLOSED: `MFK` - Mac FKeys. F1-F12 = Apple + Shift + number row.
   * In all other modes, must be OPEN.
+
+### Keypad Connections
+Analog pins 0-5 can be used to provide a 3x3 keypad for pressing certain keys on a Lisa keyboard without requiring a full keyboard. This keypad is present on the shield. A0, A1, and A2 are the anodes or "pulse" lines, and A3, A4, and A5 are the cathodes or "sense" lines.
+
+* Analog pin 0: Top row - 1, 2, 3
+* Analog pin 1: Middle row - S, ., Return
+* Analog pin 2: Bottom row - Shift, Apple, Space
+* Analog pin 3: Left column - 1, S, Shift
+* Analog pin 4: Center column - 2, ., Apple
+* Analog pin 5: Right column - 3, Return, Space
+
+If you don't want to build a full keyboard matrix, you can connect diodes between the pins when you want to activate the keys. The anode must be connected to one of A0, A1, or A2 and the cathode must be connected to one of A3, A4, or A5.
+* A0 to A3: 1
+* A0 to A4: 2
+* A0 to A5: 3
+* A1 to A3: S
+* A1 to A4: .
+* A1 to A5: Return
+* A2 to A3: Shift
+* A2 to A4: Apple
+* A2 to A5: Space
+
+## Tester Mode
+Connect a Lisa keyboard to the Arduino. Connect the Arduino to a modern device over USB. Connect to the Arduino from the modern device over USB serial at 9600 baud (using the Arduino Serial Monitor, for example). The Arduino will print messages describing the key events coming from the Lisa keyboard.
+
+    READY
+    INITED BF US
+    PRESSED 68 ~
+    RELEASED 68 ~
+    PRESSED 45 Backspace
+    RELEASED 45 Backspace
+    PRESSED 7F Apple
+    PRESSED 76 S
+    RELEASED 76 S
+    RELEASED 7F Apple
+    PRESSED 7C L Option
+    PRESSED 70 A
+    RELEASED 70 A
+    RELEASED 7C L Option
+
+### Switch Settings
+* Digital pins 5, 4, 1, 0 / switches A, B, E, F must all be OPEN in this mode.
+* Digital pins 3, 2 / switches C, D are not used and can be OPEN or CLOSED with no change in functionality.
+
+## Forward Translator Mode
+To use Forward Translator Mode, you must first reflash the Arduino's USB controller with firmware that will allow the Arduino to function as a USB keyboard. Once you do this, you won't be able to program the Arduino until you reverse the process, so upload the sketch to the Arduino first.
+
+### Reflashing the USB Controller Firmware
+* Download the file `Arduino-keyboard-0.3.hex` in the `firmware` directory.
+* Download and install ATMEL FLIP from https://www.microchip.com/developmenttools/ProductDetails/FLIP
+* Connect the Arduino.
+* Short the two male header pins on the Arduino closest to the USB port for a few seconds. (If you're on Windows, you should hear the "device disconnected" sound when connecting the pins and the "device connected" sound when disconnecting the pins.)
+* Open ATMEL FLIP.
+* Click the button for "Select a Target Device" and select ATmega16U2.
+* Click the button for "Select a Communication Medium" and select USB, then click Open.
+* Go to Buffer > Options. Make sure "Reset Buffer Before Loading" is set to Yes and "Address Programming Range" is set to Whole Buffer.
+* If this is your first time doing this:
+  * Click the button for "Read Target Device Memory".
+  * Click the button for "Save Buffer As HEX File" and save it as, for example, `arduino.hex`. (You can use this file later to turn your Arduino from a keyboard back into an Arduino.)
+* Click the button for "Load HEX File" and select the `Arduino-keyboard-0.3.hex` file.
+* Click the Run button.
+* Once the programming is done, disconnect the Arduino.
+
+To reverse this process, do the same thing but select your saved `arduino.hex` file instead of the `Arduino-keyboard-0.3.hex` file.
+
+### Using Forward Translator Mode
+Connect a Lisa keyboard to the Arduino. Connect the Arduino to a modern device over USB. Use the Lisa keyboard as a USB keyboard. Since the Lisa keyboard has fewer keys than a modern keyboard, the Right Option key selects alternate interpretations of some of the keys:
+
+* Right Option + ~ = Escape
+* Right Option + 1 = F1
+* Right Option + 2 = F2
+* Right Option + 3 = F3
+* Right Option + 4 = F4
+* Right Option + 5 = F5
+* Right Option + 6 = F6
+* Right Option + 7 = F7
+* Right Option + 8 = F8
+* Right Option + 9 = F9
+* Right Option + 0 = F10
+* Right Option + - = F11
+* Right Option + = = F12
+* Right Option + Numpad 0 = Insert
+* Right Option + Numpad . = Delete
+* Right Option + Numpad 7 = Home
+* Right Option + Numpad 1 = End
+* Right Option + Numpad 9 = Page Up
+* Right Option + Numpad 3 = Page Down
+* Right Option + Numpad 8 or Numpad / = Up Arrow
+* Right Option + Numpad 2 or Numpad , = Down Arrow
+* Right Option + Numpad 4 or Numpad + = Left Arrow
+* Right Option + Numpad 6 or Numpad * = Right Arrow
+* Right Option + Numpad Clear = Print Screen
+* Right Option + Numpad - = Scroll Lock
+* Right Option + Numpad 5 = Pause/Break
+* Right Option + Tab = Menu
+* Right Option + \[ = Volume Down
+* Right Option + \] = Volume Up
+* Right Option + \\ = Mute
+* Right Option + Return = Eject
+* Right Option + Backspace = Power
+
+### Switch Settings
+* Digital pin 5 / switch A must be OPEN.
+* Digital pin 4 / switch B must be CLOSED.
+* Digital pins 3, 2 / switches C, D select the interpretation of the modifier keys:
+  * OPEN, OPEN: PC with Left Modifiers: Option = Left Ctrl, Apple = Left Alt, Enter = Left Meta
+  * OPEN, CLOSED: PC with Mirrored Modifiers: Option = Left Ctrl, Apple = Left Alt, Enter = Right Alt
+  * CLOSED, OPEN: Mac with Left Modifiers: Option = Left Alt, Apple = Left Meta, Enter = Left Ctrl
+  * CLOSED, CLOSED: Mac with Mirrored Modifiers: Option = Left Alt, Apple = Left Meta, Enter = Right Meta
+* Digital pins 1, 0 / switches E, F must be OPEN.
