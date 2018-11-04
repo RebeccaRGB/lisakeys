@@ -171,7 +171,7 @@ Connect a Lisa keyboard to the Arduino. Connect the Arduino to a modern device o
 Connect a modern device to the Arduino over USB. Connect the Arduino to the Lisa's keyboard port. Connect to the Arduino from the modern device over USB serial at 9600 baud (using the Arduino Serial Monitor, for example). Each line of input (up to 80 characters) will be sent to the Lisa as keystrokes. The first character of each line determines the interpretation of the rest of the line.
 
 * `!` - Prints the amount of free RAM on the Arduino.
-* `@` - The rest of the line is interpreted as ASCII text. Appropriate key events are sent to generate each character.
+* `@` - The rest of the line is interpreted as ASCII. Key events are sent to generate each character.
 * `#` - The rest of the line is ignored.
 * `$` - The rest of the line is interpreted as a hex dump and sent as raw key event data.
 * `%` - The rest of the line is interpreted as raw binary data and sent as raw key event data.
@@ -234,8 +234,8 @@ To use Reverse Translator Mode, you must add a USB Host Shield to the Arduino. [
   * CLOSED, OPEN: German
   * CLOSED, CLOSED: French
 * Digital pin 1 / switch E selects the interpretation of the modifier keys:
-  * OPEN: PC: Left Ctrl/Meta = Left Option, Left Alt = Apple, Right Alt = Enter, Right Ctrl/Meta = Right Option
-  * CLOSED: Mac: Left Alt = Left Option, Left Ctrl/Meta = Apple, Right Ctrl/Meta = Enter, Right Alt = Right Option
+  * OPEN: PC: Left Ctrl/Meta = Left Opt, Left Alt = Apple, Right Alt = Enter, Right Ctrl/Meta = Right Opt
+  * CLOSED: Mac: Left Alt = Left Opt, Left Ctrl/Meta = Apple, Right Ctrl/Meta = Enter, Right Alt = Right Opt
 * Digital pin 0 / switch F selects the interpretation of the F1-F12 keys:
   * OPEN: Lisa fkeys: F1-F12 = Right Option + Shift + numeric keypad.
   * CLOSED: Mac fkeys: F1-F12 = Apple + Shift + number row.
