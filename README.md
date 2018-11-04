@@ -234,8 +234,8 @@ To use Reverse Translator Mode, you must add a USB Host Shield to the Arduino. [
   * CLOSED, OPEN: German
   * CLOSED, CLOSED: French
 * Digital pin 1 / switch E selects the interpretation of the modifier keys:
-  * OPEN: PC modifiers: Left Ctrl/Meta = Left Option, Left Alt = Apple, Right Alt = Enter, Right Ctrl/Meta = Right Option
-  * CLOSED: Mac modifiers: Left Alt = Left Option, Left Ctrl/Meta = Apple, Right Ctrl/Meta = Enter, Right Alt = Right Option
-* Digital pin 0 / switch F selects the interpretation of the F1 - F12 keys:
-  * OPEN: Lisa fkeys: F1 - F12 = Right Option + Shift + numeric keypad.
-  * CLOSED: Mac fkeys: F1 - F12 = Apple + Shift + number row.
+  * OPEN: PC: Left Ctrl/Meta = Left Option, Left Alt = Apple, Right Alt = Enter, Right Ctrl/Meta = Right Option
+  * CLOSED: Mac: Left Alt = Left Option, Left Ctrl/Meta = Apple, Right Ctrl/Meta = Enter, Right Alt = Right Option
+* Digital pin 0 / switch F selects the interpretation of the F1-F12 keys:
+  * OPEN: Lisa fkeys: F1-F12 = Right Option + Shift + numeric keypad.
+  * CLOSED: Mac fkeys: F1-F12 = Apple + Shift + number row.
