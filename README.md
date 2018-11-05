@@ -28,6 +28,8 @@ There are also gerber files for a shield to make connections and configuration e
 ### "DIP Switch" Settings
 Digital pins 0-5 are used to select the mode of operation and settings for that mode. These are present on the shield as switches or jumpers labeled A-F. To leave the "DIP switch" in the OPEN position, leave the pin disconnected or set the switch to the UP position. To leave the "DIP switch" in the CLOSED position, connect the pin to GND or set the switch to the DOWN position.
 
+![](wiki/switches.png)
+
 * Digital pin 5 / switch A:
   * OPEN: `LK>` - Lisa Keyboard In. Tester / Forward Translator Mode.<br>Connect Lisa keyboard to Arduino and Arduino to modern device.
   * CLOSED: `>LH` - To Lisa Host. Emulator / Reverse Translator Mode.<br>Connect modern device to Arduino and Arduino to Lisa.
