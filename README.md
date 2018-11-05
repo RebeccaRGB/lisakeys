@@ -112,6 +112,9 @@ To use Forward Translator Mode, you must first reflash the Arduino's USB control
 * Download and install ATMEL FLIP from https://www.microchip.com/developmenttools/ProductDetails/FLIP
 * Connect the Arduino.
 * Short the two male header pins on the Arduino closest to the USB port for a few seconds. (If you're on Windows, you should hear the "device disconnected" sound when connecting the pins and the "device connected" sound when disconnecting the pins.)
+
+![](wiki/dfureset.jpg)
+
 * Open ATMEL FLIP.
 * Click the button for "Select a Target Device" and select ATmega16U2.
 * Click the button for "Select a Communication Medium" and select USB, then click Open.
