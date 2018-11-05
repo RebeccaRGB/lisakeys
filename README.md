@@ -222,6 +222,8 @@ Connect a modern device to the Arduino over USB. Connect the Arduino to the Lisa
   * For example, to send an Apple + S keystroke: `&{A}s(A)`
   * For example, to send a Right Option + Shift + Numpad 0 keystroke: `&{PS}Z(PS)`
 
+![](wiki/coded.png)
+
 ### Switch Settings
 * Digital pin 5 / switch A must be CLOSED.
 * Digital pin 4 / switch B must be OPEN.
