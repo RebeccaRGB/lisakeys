@@ -10,7 +10,7 @@ This Arduino sketch can function in four different modes:
 
 To compile the sketch you must add the USB Host Shield library to the Arduino IDE, found [here](https://github.com/felis/USB_Host_Shield_2.0). Or, if you do not plan to use Reverse Translator Mode, you can comment out the line `#define USBK_USE_HOST_SHIELD` in `usbkeysconfig.h`.
 
-There are also gerber files for a shield to make connections and configuration easier. Or you can [buy a PCB from Aisler](https://aisler.net/p/EULWZNWF).
+There are also gerber files for a shield to make connections and configuration easier. You can [buy a PCB from Aisler](https://aisler.net/p/EULWZNWF).
 
 ## Connections
 
@@ -68,7 +68,7 @@ Digital pins 0-5 are used to select the mode of operation and settings for that 
   * In all other modes, must be OPEN.
 
 ### Keypad Connections
-Analog pins 0-5 can be used to provide a 3x3 keypad for pressing certain keys on a Lisa keyboard without requiring a full keyboard. This keypad is present on the shield. A0, A1, and A2 are the anodes or "pulse" lines, and A3, A4, and A5 are the cathodes or "sense" lines.
+Analog pins 0-5 can be used to provide a 3x3 keypad for pressing certain keys on a Lisa keyboard without requiring a full keyboard. This keypad is present on the shield. A0, A1, and A2 are the anodes or "sense" lines, and A3, A4, and A5 are the cathodes or "pulse" lines.
 
 * Analog pin 0: Top row - 1, 2, 3
 * Analog pin 1: Middle row - S, ., Return
