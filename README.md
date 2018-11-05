@@ -8,7 +8,9 @@ This Arduino sketch can function in four different modes:
 * Emulator Mode: Read instructions over serial and send keystrokes to a Lisa.
 * Reverse Translator Mode: Use a modern USB keyboard as a keyboard on a Lisa.
 
-There are also gerber files for a shield to make connections and configuration easier.
+To compile the sketch you must add the USB Host Shield library to the Arduino IDE, found [here](https://github.com/felis/USB_Host_Shield_2.0). Or, if you do not plan to use Reverse Translator Mode, you can comment out the line `#define USBK_USE_HOST_SHIELD` in `usbkeysconfig.h`.
+
+There are also gerber files for a shield to make connections and configuration easier. Or you can [buy a PCB from Aisler](https://aisler.net/p/EULWZNWF).
 
 ## Connections
 
@@ -67,6 +69,8 @@ Analog pins 0-5 can be used to provide a 3x3 keypad for pressing certain keys on
 * Analog pin 4: Center column - 2, ., Apple
 * Analog pin 5: Right column - 3, Return, Space
 
+![](wiki/keypad.png)
+
 If you don't want to build a full keyboard matrix, you can connect diodes between the pins when you want to activate the keys. The anode must be connected to one of A0, A1, or A2 and the cathode must be connected to one of A3, A4, or A5.
 * A0 to A3: 1
 * A0 to A4: 2
@@ -122,7 +126,9 @@ To use Forward Translator Mode, you must first reflash the Arduino's USB control
 To reverse this process, do the same thing but select your saved `arduino.hex` file instead of the `Arduino-keyboard-0.3.hex` file.
 
 ### Using Forward Translator Mode
-Connect a Lisa keyboard to the Arduino. Connect the Arduino to a modern device over USB. Use the Lisa keyboard as a USB keyboard. Since the Lisa keyboard has fewer keys than a modern keyboard, the Right Option key selects alternate interpretations of some of the keys:
+Connect a Lisa keyboard to the Arduino. Connect the Arduino to a modern device over USB. Use the Lisa keyboard as a USB keyboard. Since the Lisa keyboard has fewer keys than a modern keyboard, the Right Option key selects alternate interpretations of some of the keys.
+
+![](wiki/keyboard.png)
 
 * Right Option + ~ = Escape
 * Right Option + 1 = F1
