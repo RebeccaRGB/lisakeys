@@ -24,7 +24,21 @@ void setup() {
   pinMode(LK_SW_SERIAL_USB_MODE, INPUT_PULLUP);
   if (digitalRead(LK_SW_HOST_CLIENT_MODE)) {
     if (digitalRead(LK_SW_SERIAL_USB_MODE)) {
-      serial_input_mode();
+      pinMode(LK_SW_SETTING_1, INPUT_PULLUP);
+      pinMode(LK_SW_SETTING_2, INPUT_PULLUP);
+      if (digitalRead(LK_SW_SETTING_1)) {
+        if (digitalRead(LK_SW_SETTING_2)) {
+          serial_input_debug();
+        } else {
+          serial_input_ascii();
+        }
+      } else {
+        if (digitalRead(LK_SW_SETTING_2)) {
+          serial_input_hex();
+        } else {
+          serial_input_raw();
+        }
+      }
     } else {
       usb_input_mode();
     }
@@ -39,7 +53,7 @@ void setup() {
 
 void loop() {}
 
-void serial_input_mode() {
+void serial_input_debug() {
   boolean isIDByte = false;
   unsigned char packet;
   unsigned char pressed;
@@ -65,6 +79,79 @@ void serial_input_mode() {
         Serial.print(" ");
         Serial.println(lk_key_name(packet));
       }
+    }
+  }
+}
+
+void serial_input_ascii() {
+  boolean isIDByte = false;
+  unsigned char packet;
+  unsigned char pressed;
+  unsigned char mods = 0;
+  keypad_init();
+  lk_start_input();
+  Serial.begin(9600);
+  while (true) {
+    if ((packet = lk_read()) || (packet = keypad_read_packet())) {
+      if (packet == LK_INIT) {
+        isIDByte = true;
+      } else if (isIDByte) {
+        isIDByte = false;
+      } else {
+        pressed = packet & 0x80;
+        packet &= 0x7F;
+        if (packet == LK_LT_OPTION || packet == LK_RT_OPTION) {
+          if (pressed) mods |=  0x01;
+          else         mods &=~ 0x01;
+        } else if (packet == LK_APPLE) {
+          if (pressed) mods |=  0x02;
+          else         mods &=~ 0x02;
+        } else if (packet == LK_CAPS_LOCK) {
+          if (pressed) mods |=  0x04;
+          else         mods &=~ 0x04;
+        } else if (packet == LK_SHIFT) {
+          if (pressed) mods |=  0x08;
+          else         mods &=~ 0x08;
+        } else if (pressed && (packet = lk_key_to_ascii(packet, mods & 0x08))) {
+          if (mods & 0x04) {
+            if (packet >= 'a' && packet <= 'z') {
+              packet -= 32;
+            }
+          }
+          if (mods & 0x02) {
+            if (packet >= 0x40) packet &= 0x1F;
+            if (packet == 0x3F) packet  = 0x7F;
+          }
+          if (mods & 0x01) {
+            packet |= 0x80;
+          }
+          Serial.write(packet);
+        }
+      }
+    }
+  }
+}
+
+void serial_input_hex() {
+  unsigned char packet;
+  keypad_init();
+  lk_start_input();
+  Serial.begin(9600);
+  while (true) {
+    if ((packet = lk_read()) || (packet = keypad_read_packet())) {
+      Serial.print(packet, HEX);
+    }
+  }
+}
+
+void serial_input_raw() {
+  unsigned char packet;
+  keypad_init();
+  lk_start_input();
+  Serial.begin(9600);
+  while (true) {
+    if ((packet = lk_read()) || (packet = keypad_read_packet())) {
+      Serial.write(packet);
     }
   }
 }

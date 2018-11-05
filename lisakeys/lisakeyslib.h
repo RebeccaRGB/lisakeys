@@ -113,6 +113,7 @@ void lk_flush();
 
 const char * lk_layout_name(unsigned char id);
 const char * lk_key_name(unsigned char key);
+char lk_key_to_ascii(unsigned char key, boolean shift);
 unsigned char lk_key_to_usb(unsigned char key, boolean alt);
 unsigned int lk_key_from_usb(unsigned char usb, unsigned char map);
 

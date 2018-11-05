@@ -248,6 +248,44 @@ const char * lk_key_name(unsigned char key) {
   return "???";
 }
 
+static const char PROGMEM numKeysAscii[] = {
+  0x1B, '-',  '+',  '*',  '7',  '8',  '9',  '/',
+  '4',  '5',  '6',  ',',  '.',  '2',  '3',  0x0A
+};
+
+static const char PROGMEM mainKeysAscii[] = {
+  '-',  '=',  '\\', '<',  'p',  0x08, 0x0A, 0,
+  0x0A, '0',  0,    0,    '/',  '1',  0,    0,
+  '9',  '0',  'u',  'i',  'j',  'k',  '[',  ']',
+  'm',  'l',  ';',  '\'', ' ',  ',',  '.',  'o',
+  'e',  '6',  '7',  '8',  '5',  'r',  't',  'y',
+  '`',  'f',  'g',  'h',  'v',  'c',  'b',  'n',
+  'a',  '2',  '3',  '4',  '1',  'q',  's',  'w',
+  0x09, 'z',  'x',  'd',  0,    0,    0,    0
+};
+
+static const char PROGMEM mainKeysAsciiShift[] = {
+  '_',  '+',  '|',  '>',  'P',  0x08, 0x0A, 0,
+  0x0A, '0',  0,    0,    '?',  '1',  0,    0,
+  '(',  ')',  'U',  'I',  'J',  'K',  '{',  '}',
+  'M',  'L',  ':',  '"',  ' ',  '<',  '>',  'O',
+  'E',  '^',  '&',  '*',  '%',  'R',  'T',  'Y',
+  '~',  'F',  'G',  'H',  'V',  'C',  'B',  'N',
+  'A',  '@',  '#',  '$',  '!',  'Q',  'S',  'W',
+  0x09, 'Z',  'X',  'D',  0,    0,    0,    0
+};
+
+char lk_key_to_ascii(unsigned char key, boolean shift) {
+  if (key & 0x40) {
+    if (shift) return pgm_read_byte(&mainKeysAsciiShift[key & 0x3F]);
+    else       return pgm_read_byte(&mainKeysAscii     [key & 0x3F]);
+  } else if ((key & 0x30) == 0x20) {
+    return pgm_read_byte(&numKeysAscii[key & 0x0F]);
+  } else {
+    return 0;
+  }
+}
+
 static const unsigned char PROGMEM numKeysUsb[] = {
   0x53, 0x56, 0x57, 0x55, 0x5F, 0x60, 0x61, 0x54,
   0x5C, 0x5D, 0x5E, 0x85, 0x63, 0x5A, 0x5B, 0x58,
