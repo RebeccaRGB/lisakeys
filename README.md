@@ -37,6 +37,9 @@ Digital pins 0-5 are used to select the mode of operation and settings for that 
   * OPEN: `SER` - Serial. Tester / Emulator Mode. Arduino communicates with a modern device over serial.
   * CLOSED: `USB`. Translator Mode. Arduino acts as a USB keyboard device or host, depending on switch A.
 * Digital pin 3 / switch C:
+  * In Tester Mode:
+    * OPEN: Key events are output as debug statements or ASCII characters.
+    * CLOSED: Key events are output as raw hex dump or raw binary.
   * In Forward Translator Mode:
     * OPEN: `PC` - PC Modifiers. Left Option = Ctrl, Apple = Alt, Enter = Meta (or Right Alt).
     * CLOSED: `MAC` - Mac Modifiers. Left Option = Alt, Apple = Meta, Enter = Ctrl (or Right Meta).
@@ -44,6 +47,9 @@ Digital pins 0-5 are used to select the mode of operation and settings for that 
     * OPEN: `US/UK`. Selects US or UK keyboard ID.
     * CLOSED: `DE/FR`. Selects German or French keyboard ID.
 * Digital pin 2 / switch D:
+  * In Tester Mode:
+    * OPEN: Key events are output as debug statements or raw hex dump.
+    * CLOSED: Key events are output as ASCII characters or raw binary.
   * In Forward Translator Mode:
     * OPEN: `LFT` - Left Modifiers. Enter = Meta or Ctrl.
     * CLOSED: `MIR` - Mirrored Modifiers. Enter = Right Alt or Right Meta.
@@ -85,7 +91,9 @@ If you don't want to build a full keyboard matrix, you can connect diodes betwee
 * A2 to A5: Space
 
 ## Tester Mode
-Connect a Lisa keyboard to the Arduino. Connect the Arduino to a modern device over USB. Connect to the Arduino from the modern device over USB serial at 9600 baud (using the Arduino Serial Monitor, for example). The Arduino will print messages describing the key events coming from the Lisa keyboard.
+Connect a Lisa keyboard to the Arduino. Connect the Arduino to a modern device over USB. Connect to the Arduino from the modern device over USB serial at 9600 baud (using the Arduino Serial Monitor, for example). Key events coming from the Lisa keyboard will be printed over serial.
+
+With digital pins 3, 2 / switches C, D both OPEN, key events will be printed as messages, as in the following example output.
 
     READY
     INITED BF US
@@ -102,9 +110,19 @@ Connect a Lisa keyboard to the Arduino. Connect the Arduino to a modern device o
     RELEASED 70 A
     RELEASED 7C L Option
 
+With digital pin 3 / switch C OPEN and digital pin 2 / switch D CLOSED, key presses will be output as ASCII. Modifier keys will not generate output by themselves, only in combination with another key. The Shift and Caps Lock keys behave as expected. The Apple key behaves as a control key; e.g. Apple + A will generate byte value `01`. The Option key sets the high bit. The above sequence of key events will produce the byte sequence `60 08 13 E1`.
+
+With digital pin 3 / switch C CLOSED and digital pin 2 / switch D OPEN, key events will be printed as raw hex dump. The above sequence of key events will produce the ASCII string `80BFE868C545FFF6767FFCF0707C`.
+
+With digital pins 3, 2 / switches C, D both CLOSED, key events will be output as raw binary. The above sequence of key events will produce the byte sequence `80 BF E8 68 C5 45 FF F6 76 7F FC F0 70 7C`.
+
 ### Switch Settings
 * Digital pins 5, 4, 1, 0 / switches A, B, E, F must all be OPEN in this mode.
-* Digital pins 3, 2 / switches C, D are not used and can be OPEN or CLOSED with no change in functionality.
+* Digital pins 3, 2 / switches C, D select the format of the output:
+  * OPEN, OPEN: Key events are output as a one-line message describing the event.
+  * OPEN, CLOSED: Key presses are output as ASCII.
+  * CLOSED, OPEN: Key events are output as raw hex dump.
+  * CLOSED, CLOSED: Key events are output as raw binary.
 
 ## Forward Translator Mode
 To use Forward Translator Mode, you must first reflash the Arduino's USB controller with firmware that will allow the Arduino to function as a USB keyboard. Once you do this, you won't be able to program the Arduino until you reverse the process, so upload the sketch to the Arduino first.
