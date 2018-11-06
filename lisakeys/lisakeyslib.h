@@ -93,7 +93,7 @@
 #define LK_MACRO_SHIFT  0x400
 #define LK_MACRO_APPLE  0x800
 
-#define LK_WRITE_DELAY  50
+#define LK_WRITE_DELAY  10
 
 #define LK_FKEYS_NONE   0
 #define LK_FKEYS_LISA   1
