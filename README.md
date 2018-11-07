@@ -271,7 +271,36 @@ The first `2` on each line selects the `SET MEMORY` option in Service Mode.
 ## Reverse Translator Mode
 To use Reverse Translator Mode, you must add a USB Host Shield to the Arduino. [Sparkfun has one for sale.](https://www.sparkfun.com/products/9947) You must also add the USB Host Shield library to the Arduino IDE, found [here](https://github.com/felis/USB_Host_Shield_2.0).
 
-Connect a USB keyboard to the USB Host Shield. Connect the Arduino to the Lisa's keyboard port. Use the USB keyboard as the Lisa's keyboard.
+If using the Sparkfun USB Host Shield, you'll need to add a wire from digital pin 7 to the RESET line. Additionally, if you are using an Arduino Mega, you'll need to route pins 13, 12, 11, and 10 to pins 52, 50, 51, and 53, respectively.
+
+Connect a USB keyboard to the USB Host Shield. Connect the Arduino to the Lisa's keyboard port. Use the USB keyboard as the Lisa's keyboard. Since a modern keyboard has more keys than a Lisa keyboard, some keys will result in multiple keystrokes in an attempt to be useful:
+
+* Esc presses Apple + Period (.)
+* F1 presses Right Option + Shift + Numpad 1 (or Apple + Shift + 1)
+* F2 presses Right Option + Shift + Numpad 2 (or Apple + Shift + 2)
+* F3 presses Right Option + Shift + Numpad 3 (or Apple + Shift + 3)
+* F4 presses Right Option + Shift + Numpad 4 (or Apple + Shift + 4)
+* F5 presses Right Option + Shift + Numpad 5 (or Apple + Shift + 5)
+* F6 presses Right Option + Shift + Numpad 6 (or Apple + Shift + 6)
+* F7 presses Right Option + Shift + Numpad 7 (or Apple + Shift + 7)
+* F8 presses Right Option + Shift + Numpad 8 (or Apple + Shift + 8)
+* F9 presses Right Option + Shift + Numpad 9 (or Apple + Shift + 9)
+* F10 presses Right Option + Shift + Numpad 0 (or Apple + Shift + 0)
+* F11 presses Right Option + Shift + Numpad - (or Apple + Shift + -)
+* F12 presses Right Option + Shift + Numpad + (or Apple + Shift + =)
+* PrtSc presses Right Option + Shift + Numpad * (or Apple + Shift + \[)
+* ScrLk presses Right Option + Shift + Numpad / (or Apple + Shift + \])
+* Pause presses Right Option + Shift + Numpad , (or Apple + Shift + \\)
+* Ins presses the Lisa's odd third Enter key
+* Home presses the tilde key (in case your keyboard doesn't have one)
+* PgUp presses the backslash key (in case your keyboard doesn't have one)
+* Del presses the Backspace key (what else is it going to do?)
+* End presses the angle bracket key found on non-US Lisa keyboards
+* PgDn presses Numpad , (not likely to be found on modern keyboards)
+* Left arrow key presses Apple + Numpad +
+* Right arrow key presses Apple + Numpad *
+* Up arrow key presses Apple + Numpad /
+* Down arrow key presses Apple + Numpad ,
 
 ### Switch Settings
 * Digital pins 5, 4 / switches A, B must be CLOSED.
