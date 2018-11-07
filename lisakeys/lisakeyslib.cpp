@@ -366,12 +366,8 @@ static const unsigned int PROGMEM keyFromUsb[] = {
   -13, -14, -15,
 
   // Ins, Home, PgUp, Del, End, PgDn
-  LK_ENTER,
-  (LK_MACRO_APPLE | LK_NUM_SLASH),
-  (LK_MACRO_APPLE | LK_NUM_SLASH),
-  LK_BACKSPACE,
-  (LK_MACRO_APPLE | LK_NUM_COMMA),
-  (LK_MACRO_APPLE | LK_NUM_COMMA),
+  LK_ENTER, LK_TILDE, LK_BACKSLASH,
+  LK_BACKSPACE, LK_LESS_GREATER, LK_NUM_COMMA,
 
   // Right, Left, Down, Up
   (LK_MACRO_APPLE | LK_NUM_TIMES),
