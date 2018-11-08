@@ -297,11 +297,11 @@ void usb_output_mode() {
   if (digitalRead(LK_SW_SETTING_3)) {
     // PC Layout
     lCtrlKey = lMetaKey = LK_LT_OPTION; lAltKey = LK_APPLE;
-    rCtrlKey = rMetaKey = LK_RT_OPTION; rAltKey = LK_ENTER;
+    rCtrlKey = rMetaKey = LK_RT_OPTION; rAltKey = LK_APPLE;
   } else {
     // Mac Layout
     lAltKey = LK_LT_OPTION; lCtrlKey = lMetaKey = LK_APPLE;
-    rAltKey = LK_RT_OPTION; rCtrlKey = rMetaKey = LK_ENTER;
+    rAltKey = LK_RT_OPTION; rCtrlKey = rMetaKey = LK_APPLE;
   }
   if (digitalRead(LK_SW_SETTING_4)) {
     fkeyMap = LK_FKEYS_LISA;

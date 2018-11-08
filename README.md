@@ -58,8 +58,8 @@ Digital pins 0-5 are used to select the mode of operation and settings for that 
     * CLOSED: `UK/FR`. Selects UK or French keyboard ID.
 * Digital pin 1 / switch E:
   * In Reverse Translator Mode:
-    * OPEN: `PC` - PC Modifiers. Ctrl/Meta = Option, Alt = Apple, Right Alt = Enter.
-    * CLOSED: `MAC` - Mac Modifiers. Alt = Option, Ctrl/Meta = Apple, Right Ctrl/Meta = Enter.
+    * OPEN: `PC` - PC Modifiers. Ctrl/Meta = Option, Alt = Apple.
+    * CLOSED: `MAC` - Mac Modifiers. Alt = Option, Ctrl/Meta = Apple.
   * In all other modes, must be OPEN.
 * Digital pin 0 / switch F:
   * In Reverse Translator Mode:
@@ -310,8 +310,8 @@ Connect a USB keyboard to the USB Host Shield. Connect the Arduino to the Lisa's
   * CLOSED, OPEN: German
   * CLOSED, CLOSED: French
 * Digital pin 1 / switch E selects the interpretation of the modifier keys:
-  * OPEN: PC: Left Ctrl/Meta = Left Opt, Left Alt = Apple, Right Alt = Enter, Right Ctrl/Meta = Right Opt
-  * CLOSED: Mac: Left Alt = Left Opt, Left Ctrl/Meta = Apple, Right Ctrl/Meta = Enter, Right Alt = Right Opt
+  * OPEN: PC: Left Ctrl/Meta = Left Opt, Alt = Apple, Right Ctrl/Meta = Right Opt.
+  * CLOSED: Mac: Left Alt = Left Opt, Ctrl/Meta = Apple, Right Alt = Right Opt.
 * Digital pin 0 / switch F selects the interpretation of the F1-F12 keys:
   * OPEN: Lisa fkeys: F1-F12 = Right Option + Shift + numeric keypad.
   * CLOSED: Mac fkeys: F1-F12 = Apple + Shift + number row.
