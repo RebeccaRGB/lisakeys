@@ -13,6 +13,16 @@ void lk_start_input() {
   delay(100);
 }
 
+#define LK_PACKET_IN_SYNC  20
+#define LK_PACKET_IN_START 23
+#define LK_PACKET_IN_SHORT 15
+#define LK_PACKET_IN_LONG1 23
+#define LK_PACKET_IN_LONG2 23
+#define LK_PACKET_IN_STOP  24
+
+#define LK_PACKET_IN_MAX_DELAY  128
+#define LK_PACKET_IN_MIN_PERIOD 768
+
 unsigned char lk_read() {
   unsigned char packet = 0;
   noInterrupts();
@@ -20,42 +30,42 @@ unsigned char lk_read() {
   // Generate sync signal.
   LK_DATA_DDR  |=  LK_DATA_MASK; // output
   LK_DATA_PORT &=~ LK_DATA_MASK; // pull down
-  _delay_us(16);
+  _delay_us(LK_PACKET_IN_SYNC);
   LK_DATA_DDR  &=~ LK_DATA_MASK; // input
   LK_DATA_PORT |=  LK_DATA_MASK; // pull up
 
   // Wait for start bit.
   unsigned long time = micros();
   while (LK_DATA_PIN & LK_DATA_MASK) {
-    if ((micros() - time) > 128) {
+    if ((micros() - time) > LK_PACKET_IN_MAX_DELAY) {
       // If start bit doesn't come, no input.
       interrupts();
-      _delay_us(768);
+      _delay_us(LK_PACKET_IN_MIN_PERIOD);
       return 0;
     }
   }
 
   // Read data packet.
-  _delay_us(24);
+  _delay_us(LK_PACKET_IN_START);
   if (LK_DATA_PIN & LK_DATA_MASK) packet |= 0x10;
-  _delay_us(16);
+  _delay_us(LK_PACKET_IN_SHORT);
   if (LK_DATA_PIN & LK_DATA_MASK) packet |= 0x20;
-  _delay_us(16);
+  _delay_us(LK_PACKET_IN_SHORT);
   if (LK_DATA_PIN & LK_DATA_MASK) packet |= 0x40;
-  _delay_us(24);
+  _delay_us(LK_PACKET_IN_LONG1);
   if (LK_DATA_PIN & LK_DATA_MASK) packet |= 0x80;
-  _delay_us(24);
+  _delay_us(LK_PACKET_IN_LONG2);
   if (LK_DATA_PIN & LK_DATA_MASK) packet |= 0x01;
-  _delay_us(16);
+  _delay_us(LK_PACKET_IN_SHORT);
   if (LK_DATA_PIN & LK_DATA_MASK) packet |= 0x02;
-  _delay_us(16);
+  _delay_us(LK_PACKET_IN_SHORT);
   if (LK_DATA_PIN & LK_DATA_MASK) packet |= 0x04;
-  _delay_us(16);
+  _delay_us(LK_PACKET_IN_SHORT);
   if (LK_DATA_PIN & LK_DATA_MASK) packet |= 0x08;
-  _delay_us(24);
+  _delay_us(LK_PACKET_IN_STOP);
 
   interrupts();
-  _delay_us(768);
+  _delay_us(LK_PACKET_IN_MIN_PERIOD);
   return ~packet;
 }
 
@@ -132,6 +142,15 @@ void lk_delay(unsigned long ms) {
   }
 }
 
+// Nominally 12?, 16, 16, 32, 16, but have to be adjusted
+// to compensate for time taken by the microcontroller.
+// These have been adjusted to work with a real Lisa.
+#define LK_PACKET_OUT_DELAY 10
+#define LK_PACKET_OUT_START 15
+#define LK_PACKET_OUT_SHORT 15
+#define LK_PACKET_OUT_LONG  30
+#define LK_PACKET_OUT_STOP  15
+
 void lk_flush() {
   // Wait for start of sync signal.
   unsigned long time = micros();
@@ -163,57 +182,57 @@ void lk_flush() {
   unsigned char packet = keyBuffer[keyBufStart];
   keyBufStart++;
   keyBufStart &= (LK_BUFFER_SIZE - 1);
-  _delay_us(32);
+  _delay_us(LK_PACKET_OUT_DELAY);
 
   // start bit
   LK_DATA_DDR  |=  LK_DATA_MASK; // output
   LK_DATA_PORT &=~ LK_DATA_MASK; // pull down
-  _delay_us(16);
+  _delay_us(LK_PACKET_OUT_START);
 
   // bit 4
   if (packet & 0x10) LK_DATA_PORT &=~ LK_DATA_MASK; // pull down
   else               LK_DATA_PORT |=  LK_DATA_MASK; // pull up
-  _delay_us(16);
+  _delay_us(LK_PACKET_OUT_SHORT);
 
   // bit 5
   if (packet & 0x20) LK_DATA_PORT &=~ LK_DATA_MASK; // pull down
   else               LK_DATA_PORT |=  LK_DATA_MASK; // pull up
-  _delay_us(16);
+  _delay_us(LK_PACKET_OUT_SHORT);
 
   // bit 6
   if (packet & 0x40) LK_DATA_PORT &=~ LK_DATA_MASK; // pull down
   else               LK_DATA_PORT |=  LK_DATA_MASK; // pull up
-  _delay_us(16);
+  _delay_us(LK_PACKET_OUT_SHORT);
 
   // bit 7
   if (packet & 0x80) LK_DATA_PORT &=~ LK_DATA_MASK; // pull down
   else               LK_DATA_PORT |=  LK_DATA_MASK; // pull up
-  _delay_us(32);
+  _delay_us(LK_PACKET_OUT_LONG);
 
   // bit 0
   if (packet & 0x01) LK_DATA_PORT &=~ LK_DATA_MASK; // pull down
   else               LK_DATA_PORT |=  LK_DATA_MASK; // pull up
-  _delay_us(16);
+  _delay_us(LK_PACKET_OUT_SHORT);
 
   // bit 1
   if (packet & 0x02) LK_DATA_PORT &=~ LK_DATA_MASK; // pull down
   else               LK_DATA_PORT |=  LK_DATA_MASK; // pull up
-  _delay_us(16);
+  _delay_us(LK_PACKET_OUT_SHORT);
 
   // bit 2
   if (packet & 0x04) LK_DATA_PORT &=~ LK_DATA_MASK; // pull down
   else               LK_DATA_PORT |=  LK_DATA_MASK; // pull up
-  _delay_us(16);
+  _delay_us(LK_PACKET_OUT_SHORT);
 
   // bit 3
   if (packet & 0x08) LK_DATA_PORT &=~ LK_DATA_MASK; // pull down
   else               LK_DATA_PORT |=  LK_DATA_MASK; // pull up
-  _delay_us(16);
+  _delay_us(LK_PACKET_OUT_SHORT);
 
   // stop bit
   LK_DATA_DDR  &=~ LK_DATA_MASK; // input
   LK_DATA_PORT |=  LK_DATA_MASK; // pull up
-  _delay_us(16);
+  _delay_us(LK_PACKET_OUT_STOP);
 
   interrupts();
 }
