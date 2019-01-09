@@ -245,12 +245,12 @@ const char * lk_layout_name(unsigned char id) {
   return "???";
 }
 
-static const char * PROGMEM numKeys[] = {
+static const char * const PROGMEM numKeys[] = {
   "N Clear", "N -", "N +", "N *", "N 7", "N 8", "N 9", "N /",
   "N 4",     "N 5", "N 6", "N ,", "N .", "N 2", "N 3", "N Enter"
 };
 
-static const char * PROGMEM mainKeys[] = {
+static const char * const PROGMEM mainKeys[] = {
   "-",      "=",   "\\",  "<>",  "P",        "Backspace", "Enter",    "???",
   "Return", "N 0", "???", "???", "/",        "N 1",       "R Option", "???",
   "9",      "0",   "U",   "I",   "J",        "K",         "[",        "]",

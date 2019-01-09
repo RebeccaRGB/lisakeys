@@ -156,7 +156,7 @@ void lk_write_coded(unsigned char * s) {
   }
 }
 
-static const char * PROGMEM blu_bootstrap[] = {
+static const char * const PROGMEM blu_bootstrap[] = {
   // Input Bootstrap
   ("2900 4dfa 0020 3456 227c 00fc d201 3c09 129e\r"
    "2910 66f4 0811 0000 67fa 14e9 0004 51ce fff4\r"
