@@ -156,29 +156,29 @@ void lk_write_coded(unsigned char * s) {
   }
 }
 
-static const char * const PROGMEM blu_bootstrap[] = {
-  // Input Bootstrap
-  ("2900 4dfa 0020 3456 227c 00fc d201 3c09 129e\r"
-   "2910 66f4 0811 0000 67fa 14e9 0004 51ce fff4\r"
-   "2920 4e75 09c0 0bd0 0444 0e01 03c1 05e8 0c00\r"),
-  // Set Bitrate
-  "292e 0c00 0000\r",
-  "292e 0c01 0000\r",
-  "292e 0c04 0000\r",
-  "292e 0c0a 0000\r",
-  "292e 0c16 0000\r",
-  "292e 0c2e 0000\r",
-  "292e 0c5e 0000\r",
-  // Confirm Bootstrap
-  "1900 30\r",
-  // Run Bootstrap
-  "3900\r",
-  // Confirm Image
-  "19c0 10\r1c14 10\r",
-  // Run Image
-  "3c14\r",
-};
-
 void lk_write_blu_bootstrap(unsigned char s) {
-  if (s < 12) lk_write_ascii((unsigned char *)blu_bootstrap[s]);
+  switch (s) {
+    // Input Bootstrap
+    case 0: lk_write_ascii(
+      "2900 4dfa 0020 3456 227c 00fc d201 3c09 129e\r"
+      "2910 66f4 0811 0000 67fa 14e9 0004 51ce fff4\r"
+      "2920 4e75 09c0 0bd0 0444 0e01 03c1 05e8 0c00\r"
+    ); break;
+    // Set Bitrate
+    case 1: lk_write_ascii("292e 0c00 0000\r"); break;
+    case 2: lk_write_ascii("292e 0c01 0000\r"); break;
+    case 3: lk_write_ascii("292e 0c04 0000\r"); break;
+    case 4: lk_write_ascii("292e 0c0a 0000\r"); break;
+    case 5: lk_write_ascii("292e 0c16 0000\r"); break;
+    case 6: lk_write_ascii("292e 0c2e 0000\r"); break;
+    case 7: lk_write_ascii("292e 0c5e 0000\r"); break;
+    // Confirm Bootstrap
+    case 8: lk_write_ascii("1900 30\r"); break;
+    // Run Bootstrap
+    case 9: lk_write_ascii("3900\r"); break;
+    // Confirm Image
+    case 10: lk_write_ascii("19c0 10\r1c14 10\r"); break;
+    // Run Image
+    case 11: lk_write_ascii("3c14\r"); break;
+  }
 }

@@ -245,26 +245,90 @@ const char * lk_layout_name(unsigned char id) {
   return "???";
 }
 
-static const char * const PROGMEM numKeys[] = {
-  "N Clear", "N -", "N +", "N *", "N 7", "N 8", "N 9", "N /",
-  "N 4",     "N 5", "N 6", "N ,", "N .", "N 2", "N 3", "N Enter"
-};
-
-static const char * const PROGMEM mainKeys[] = {
-  "-",      "=",   "\\",  "<>",  "P",        "Backspace", "Enter",    "???",
-  "Return", "N 0", "???", "???", "/",        "N 1",       "R Option", "???",
-  "9",      "0",   "U",   "I",   "J",        "K",         "[",        "]",
-  "M",      "L",   ";",   "\"",  "Space",    ",",         ".",        "O",
-  "E",      "6",   "7",   "8",   "5",        "R",         "T",        "Y",
-  "~",      "F",   "G",   "H",   "V",        "C",         "B",        "N",
-  "A",      "2",   "3",   "4",   "1",        "Q",         "S",        "W",
-  "Tab",    "Z",   "X",   "D",   "L Option", "Caps Lock", "Shift",    "Apple"
-};
-
 const char * lk_key_name(unsigned char key) {
-  if (key & 0x40) return mainKeys[key & 0x3F];
-  if ((key & 0x30) == 0x20) return numKeys[key & 0x0F];
-  return "???";
+  switch (key & 0x7F) {
+    case 0x20: return "N Clear";
+    case 0x21: return "N -";
+    case 0x22: return "N +";
+    case 0x23: return "N *";
+    case 0x24: return "N 7";
+    case 0x25: return "N 8";
+    case 0x26: return "N 9";
+    case 0x27: return "N /";
+    case 0x28: return "N 4";
+    case 0x29: return "N 5";
+    case 0x2A: return "N 6";
+    case 0x2B: return "N ,";
+    case 0x2C: return "N .";
+    case 0x2D: return "N 2";
+    case 0x2E: return "N 3";
+    case 0x2F: return "N Enter";
+    case 0x40: return "-";
+    case 0x41: return "=";
+    case 0x42: return "\\";
+    case 0x43: return "<>";
+    case 0x44: return "P";
+    case 0x45: return "Backspace";
+    case 0x46: return "Enter";
+    case 0x47: return "???";
+    case 0x48: return "Return";
+    case 0x49: return "N 0";
+    case 0x4A: return "???";
+    case 0x4B: return "???";
+    case 0x4C: return "/";
+    case 0x4D: return "N 1";
+    case 0x4E: return "R Option";
+    case 0x4F: return "???";
+    case 0x50: return "9";
+    case 0x51: return "0";
+    case 0x52: return "U";
+    case 0x53: return "I";
+    case 0x54: return "J";
+    case 0x55: return "K";
+    case 0x56: return "[";
+    case 0x57: return "]";
+    case 0x58: return "M";
+    case 0x59: return "L";
+    case 0x5A: return ";";
+    case 0x5B: return "\"";
+    case 0x5C: return "Space";
+    case 0x5D: return ",";
+    case 0x5E: return ".";
+    case 0x5F: return "O";
+    case 0x60: return "E";
+    case 0x61: return "6";
+    case 0x62: return "7";
+    case 0x63: return "8";
+    case 0x64: return "5";
+    case 0x65: return "R";
+    case 0x66: return "T";
+    case 0x67: return "Y";
+    case 0x68: return "~";
+    case 0x69: return "F";
+    case 0x6A: return "G";
+    case 0x6B: return "H";
+    case 0x6C: return "V";
+    case 0x6D: return "C";
+    case 0x6E: return "B";
+    case 0x6F: return "N";
+    case 0x70: return "A";
+    case 0x71: return "2";
+    case 0x72: return "3";
+    case 0x73: return "4";
+    case 0x74: return "1";
+    case 0x75: return "Q";
+    case 0x76: return "S";
+    case 0x77: return "W";
+    case 0x78: return "Tab";
+    case 0x79: return "Z";
+    case 0x7A: return "X";
+    case 0x7B: return "D";
+    case 0x7C: return "L Option";
+    case 0x7D: return "Caps Lock";
+    case 0x7E: return "Shift";
+    case 0x7F: return "Apple";
+    default:   return "???";
+  }
 }
 
 static const char PROGMEM numKeysAscii[] = {
