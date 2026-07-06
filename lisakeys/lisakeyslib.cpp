@@ -371,11 +371,11 @@ char lk_key_to_ascii(unsigned char key, boolean shift) {
 
 static const unsigned char PROGMEM numKeysUsb[] = {
   0x53, 0x56, 0x57, 0x55, 0x5F, 0x60, 0x61, 0x54,
-  0x5C, 0x5D, 0x5E, 0x85, 0x63, 0x5A, 0x5B, 0x58,
+  0x5C, 0x5D, 0x5E, 0x67, 0x63, 0x5A, 0x5B, 0x58,
 };
 
 static const unsigned char PROGMEM mainKeysUsb[] = {
-  0x2D, 0x2E, 0x31, 0x32, 0x13, 0x2A, 0xE7, 0x00,
+  0x2D, 0x2E, 0x31, 0x64, 0x13, 0x2A, 0xE7, 0x00,
   0x28, 0x62, 0x00, 0x00, 0x38, 0x59, 0xE6, 0x00,
   0x26, 0x27, 0x18, 0x0C, 0x0D, 0x0E, 0x2F, 0x30,
   0x10, 0x0F, 0x33, 0x34, 0x2C, 0x36, 0x37, 0x12,
@@ -439,7 +439,7 @@ static const unsigned int PROGMEM keyFromUsb[] = {
 
   LK_BACKSPACE, LK_TAB, LK_SPACE, LK_MINUS, LK_EQUAL,
   LK_LT_BRACKET, LK_RT_BRACKET, LK_BACKSLASH,
-  LK_LESS_GREATER, LK_SEMICOLON, LK_QUOTE, LK_TILDE,
+  LK_BACKSLASH, LK_SEMICOLON, LK_QUOTE, LK_TILDE,
   LK_COMMA, LK_PERIOD, LK_SLASH, LK_CAPS_LOCK,
 
   // F1 - F12
@@ -461,7 +461,7 @@ static const unsigned int PROGMEM keyFromUsb[] = {
   LK_NUM_CLEAR, LK_NUM_SLASH, LK_NUM_TIMES, LK_NUM_MINUS,
   LK_NUM_PLUS, LK_NUM_ENTER, LK_NUM_1, LK_NUM_2, LK_NUM_3,
   LK_NUM_4, LK_NUM_5, LK_NUM_6, LK_NUM_7, LK_NUM_8, LK_NUM_9,
-  LK_NUM_0, LK_NUM_PERIOD, LK_BACKSLASH,
+  LK_NUM_0, LK_NUM_PERIOD, LK_LESS_GREATER,
 
   // Menu, Power, Keypad =
   LK_ENTER, 0, LK_NUM_COMMA
@@ -536,5 +536,6 @@ unsigned int lk_key_from_usb(unsigned char usb, unsigned char map) {
   }
   if (usb == 0x82) return LK_CAPS_LOCK;
   if (usb == 0x85) return LK_NUM_COMMA;
+  if (usb == 0x86) return LK_NUM_COMMA;
   return 0;
 }

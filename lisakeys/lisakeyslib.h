@@ -6,10 +6,19 @@
 #define LK_LAYOUT_DE    0xAE
 #define LK_LAYOUT_UK    0xAF
 #define LK_LAYOUT_US    0xBF
-#define LK_FAIL         0xFF
+
+#define LK_RTC_DATA      0xE0
+#define LK_POWER_BUTTON  0xFB
+#define LK_RTC_TIMER     0xFC
+#define LK_DISCONNECT    0xFD
+#define LK_IO_BOARD_FAIL 0xFE
+#define LK_KEYBOARD_FAIL 0xFF
 
 #define LK_PRESSED      0x80
 #define LK_RELEASED     0x00
+
+#define LK_MOUSE_BUTTON  0x06
+#define LK_MOUSE_CONNECT 0x07
 
 #define LK_NUM_CLEAR    0x20
 #define LK_NUM_MINUS    0x21
